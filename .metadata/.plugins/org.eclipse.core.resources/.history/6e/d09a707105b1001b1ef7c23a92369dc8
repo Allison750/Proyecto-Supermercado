@@ -1,0 +1,406 @@
+package guiVentanas;
+
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
+
+import Arreglos.ArregloAdministradores;
+import Arreglos.ArregloLogin;
+import Clases.Cajero;
+import Clases.Login;
+
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
+import java.awt.Font;
+import java.awt.Color;
+import java.awt.Desktop;
+
+import javax.swing.JTextField;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Scanner;
+import java.awt.event.ActionEvent;
+import javax.swing.JProgressBar;
+import javax.swing.JPasswordField;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+
+public class CrearUsuario extends JFrame implements ActionListener {
+    ArregloAdministradores aa= new ArregloAdministradores(); 
+    ArregloLogin al=new ArregloLogin();
+	private JPanel contentPane;
+	private JLabel lblRegistroDeUn;
+	private JLabel lblIngreseUnNombre;
+	private JTextField txtNuevoNomUsuario;
+	private JLabel lblIngreseUnNombre_1;
+	private JLabel lblIncluyaLetrasnmerosY;
+	private JButton btnRegresarAlMen;
+	private JProgressBar progressBar;
+	private JPasswordField passwordCrear;
+	private JScrollPane scrollPane;
+	private JTable tableUsuarios;
+	private JButton buttonAdicionar;
+	private JButton buttonEliminar;
+	private JButton buttonModificar;
+	private JButton buttonListar;
+	private JButton buttonBuscar;
+	private DefaultTableModel modelo;
+	private JButton btnAbrir;
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					CrearUsuario frame = new CrearUsuario();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public CrearUsuario() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 706, 503);
+		contentPane = new JPanel();
+		contentPane.setBackground(new Color(204, 153, 255));
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		lblRegistroDeUn = new JLabel("  NUEVO  USUARIO");
+		lblRegistroDeUn.setForeground(new Color(255, 255, 255));
+		lblRegistroDeUn.setFont(new Font("Lucida Bright", Font.BOLD, 22));
+		lblRegistroDeUn.setBounds(143, 28, 239, 51);
+		contentPane.add(lblRegistroDeUn);
+		
+		lblIngreseUnNombre = new JLabel("Ingrese un nombre de usuario:");
+		lblIngreseUnNombre.setForeground(new Color(0, 0, 0));
+		lblIngreseUnNombre.setFont(new Font("Times New Roman", Font.BOLD, 15));
+		lblIngreseUnNombre.setBounds(22, 90, 228, 25);
+		contentPane.add(lblIngreseUnNombre);
+		
+		txtNuevoNomUsuario = new JTextField();
+		txtNuevoNomUsuario.setBounds(260, 93, 233, 20);
+		contentPane.add(txtNuevoNomUsuario);
+		txtNuevoNomUsuario.setColumns(10);
+		
+		lblIngreseUnNombre_1 = new JLabel("Ingrese una contrase\u00F1a:");
+		lblIngreseUnNombre_1.setForeground(new Color(0, 0, 0));
+		lblIngreseUnNombre_1.setFont(new Font("Times New Roman", Font.BOLD, 15));
+		lblIngreseUnNombre_1.setBounds(22, 126, 210, 25);
+		contentPane.add(lblIngreseUnNombre_1);
+		
+		lblIncluyaLetrasnmerosY = new JLabel("(Incluir letras y n\u00FAmeros)");
+		lblIncluyaLetrasnmerosY.setForeground(new Color(255, 0, 51));
+		lblIncluyaLetrasnmerosY.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 11));
+		lblIncluyaLetrasnmerosY.setBounds(303, 153, 152, 14);
+		contentPane.add(lblIncluyaLetrasnmerosY);
+		
+		btnRegresarAlMen = new JButton("Atr\u00E1s");
+		btnRegresarAlMen.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnRegresarAlMen.setBackground(new Color(255, 255, 204));
+		btnRegresarAlMen.setForeground(new Color(0, 0, 0));
+		btnRegresarAlMen.addActionListener(this);
+		btnRegresarAlMen.setBounds(0, 0, 127, 23);
+		contentPane.add(btnRegresarAlMen);
+		
+		progressBar = new JProgressBar();
+		progressBar.setBounds(0, 0, 127, 25);
+		contentPane.add(progressBar);
+		
+		passwordCrear = new JPasswordField();
+		passwordCrear.setBounds(260, 124, 233, 20);
+		contentPane.add(passwordCrear);
+		
+		scrollPane = new JScrollPane();
+		scrollPane.setBounds(37, 197, 443, 245);
+		contentPane.add(scrollPane);
+		
+		tableUsuarios = new JTable();
+		scrollPane.setViewportView(tableUsuarios);
+		scrollPane.setViewportView(tableUsuarios);
+		modelo = new DefaultTableModel();
+		modelo.addColumn("Usuario");
+		modelo.addColumn("Contraseña");
+		tableUsuarios.setModel(modelo);
+		
+		buttonAdicionar = new JButton("Adicionar");
+		buttonAdicionar.addActionListener(this);
+		buttonAdicionar.setFont(new Font("Tahoma", Font.BOLD, 12));
+		buttonAdicionar.setBackground(new Color(50, 205, 50));
+		buttonAdicionar.setBounds(513, 167, 134, 46);
+		contentPane.add(buttonAdicionar);
+		
+		buttonEliminar = new JButton("Eliminar");
+		buttonEliminar.addActionListener(this);
+		buttonEliminar.setFont(new Font("Tahoma", Font.BOLD, 12));
+		buttonEliminar.setBackground(new Color(240, 128, 128));
+		buttonEliminar.setBounds(513, 224, 134, 46);
+		contentPane.add(buttonEliminar);
+		
+		buttonModificar = new JButton("Modificar");
+		buttonModificar.addActionListener(this);
+		buttonModificar.setFont(new Font("Tahoma", Font.BOLD, 12));
+		buttonModificar.setBackground(Color.YELLOW);
+		buttonModificar.setBounds(513, 281, 134, 46);
+		contentPane.add(buttonModificar);
+		
+		buttonListar = new JButton("Listar");
+		buttonListar.addActionListener(this);
+		buttonListar.setFont(new Font("Tahoma", Font.BOLD, 12));
+		buttonListar.setBackground(new Color(135, 206, 250));
+		buttonListar.setBounds(513, 338, 134, 46);
+		contentPane.add(buttonListar);
+		
+		buttonBuscar = new JButton("Buscar");
+		buttonBuscar.addActionListener(this);
+		buttonBuscar.setFont(new Font("Tahoma", Font.BOLD, 12));
+		buttonBuscar.setBackground(new Color(186, 85, 211));
+		buttonBuscar.setBounds(513, 395, 134, 41);
+		contentPane.add(buttonBuscar);
+		
+		btnAbrir = new JButton("Abrir");
+		btnAbrir.addActionListener(this);
+		btnAbrir.setBounds(545, 46, 89, 23);
+		contentPane.add(btnAbrir);
+		
+	}
+
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnAbrir) {
+			do_btnAbrir_actionPerformed(e);
+		}
+		if (e.getSource() == buttonBuscar) {
+			do_buttonBuscar_actionPerformed(e);
+		}
+		if (e.getSource() == buttonListar) {
+			do_buttonListar_actionPerformed(e);
+		}
+		if (e.getSource() == buttonModificar) {
+			do_buttonModificar_actionPerformed(e);
+		}
+		if (e.getSource() == buttonEliminar) {
+			do_buttonEliminar_actionPerformed(e);
+		}
+		if (e.getSource() == buttonAdicionar) {
+			do_buttonAdicionar_actionPerformed(e);
+		}
+		if (e.getSource() == btnRegresarAlMen) {
+			do_btnRegresarAlMen_actionPerformed(e);
+		}
+	}
+	protected void do_btnRegresarAlMen_actionPerformed(ActionEvent e) {
+		dispose();
+		Ventana_login_Admin nuevoFrame = new Ventana_login_Admin();
+		nuevoFrame.setVisible(true);
+	
+	}
+	String leerNombreUsuario(){
+    	return txtNuevoNomUsuario.getText();
+    }
+    String leerContraseña(){
+    	return passwordCrear.getText();
+    }
+	protected void do_buttonAdicionar_actionPerformed(ActionEvent e) {
+		String nuevo_usuario=leerNombreUsuario();
+		if(nuevo_usuario.length()>0){
+			try{
+				String nueva_contraseña=leerContraseña();
+				if(nueva_contraseña.length()>0){
+					Login l=new Login(nuevo_usuario,nueva_contraseña);
+					al.Adicionar(l); 
+					//Listar();
+					try{
+						 FileWriter fw=new FileWriter("RegistroLogin.txt",true);
+						 BufferedWriter bw=new BufferedWriter(fw);
+						 PrintWriter pw =new PrintWriter(bw);
+						 pw.print("\tRegistro de Login\n");
+						 pw.print("-----------------------------\n");
+						 pw.print("\t"+l.getUsuario()+" ");						 
+						 pw.print("\t"+l.getContraseña()+" \n");
+																						
+						 pw.close();
+					 }catch (Exception de){
+						 JOptionPane.showMessageDialog(null, de);
+						 mensaje("Falta llenar el campo  Contraseña");
+					 }
+					Mensaje("Se ha añadido un cajero exitosamente");
+
+				}else{
+					mensaje("Ingrese Contraseña");
+				}
+			}catch(Exception x){
+				mensaje("Rellena todos los campos");
+			}
+		}else{
+			mensaje("Ingrese Usuario");
+		}		
+	}
+	void Mensaje(String a){
+		JOptionPane.showMessageDialog(this,a);
+	}
+	void mensaje(String s){
+		JOptionPane.showMessageDialog(contentPane, s, "¡ERROR!", 0);
+	}
+	String mensaje(){
+		return "Rellene todos los campos";
+	}
+	void Listar(){
+		modelo.setRowCount(0);
+		for(int i=0; i<al.Tamaño(); i++){
+			Object[] fila ={
+			al.Obtener(i).getUsuario(),
+			al.Obtener(i).getContraseña()};
+			modelo.addRow(fila);
+			}
+	}
+	protected void do_buttonEliminar_actionPerformed(ActionEvent e) {
+		
+		try {
+			Login x = al.Buscar(leerNombreUsuario());
+			if (x != null) {
+			al.Eliminar(x);
+			Mensaje("Se eliminó "+leerNombreUsuario()+" "+"exitosamente");
+			//Listar();
+			txtNuevoNomUsuario.setText("");
+			passwordCrear.setText("");
+			txtNuevoNomUsuario.requestFocus();
+			}
+			else {
+			mensaje("El usuario: " + x + " no existe");
+			txtNuevoNomUsuario.setText("");
+			passwordCrear.requestFocus();
+			}
+			}
+			catch (Exception ex) {
+			mensaje("Rellene los campos");
+			txtNuevoNomUsuario.setText("");
+	        txtNuevoNomUsuario.requestFocus();
+			}
+		//Listar();
+	}
+	protected void do_buttonModificar_actionPerformed(ActionEvent e) {
+		try{
+			Login x = al.Buscar(leerNombreUsuario());
+			if(x != null){
+				String usuario =leerNombreUsuario() ;
+				if(usuario.length()>0){
+					try{
+						String contraseña = leerContraseña();
+						try{
+							Login l=new Login(usuario,contraseña);
+							//Listar();
+							Mensaje("Se ha modificado el usuario "+l.getUsuario()+" correctamente...");
+						    x.setUsuario(leerNombreUsuario());
+						    x.setContraseña(leerContraseña());
+		
+							//Listar();
+							txtNuevoNomUsuario.requestFocus();
+						}
+						catch(Exception m){
+							mensaje(mensaje());
+							txtNuevoNomUsuario.setText("");
+							txtNuevoNomUsuario.requestFocus();
+						}
+					}catch(Exception m){
+						mensaje(mensaje());
+						txtNuevoNomUsuario.setText("");
+						txtNuevoNomUsuario.requestFocus();
+					}
+				}else{
+					mensaje(mensaje());
+					txtNuevoNomUsuario.setText("");
+					passwordCrear.requestFocus();
+					
+					}
+			}else{
+				mensaje("¡CODIGO INEXISTENTE!");
+				txtNuevoNomUsuario.setText("");
+				txtNuevoNomUsuario.requestFocus();
+			}
+		}
+		catch(Exception m){
+			mensaje("¡CODIGO INEXISTENTE!");
+			txtNuevoNomUsuario.setText("");
+			txtNuevoNomUsuario.requestFocus();
+		}
+	}
+	protected void do_buttonListar_actionPerformed(ActionEvent e) {
+		String usuarioL,contraseñaL;
+		String au="C:/Users/allis/OneDrive/Escritorio/PROYECTO SUPERMERCADO/Supermercado_V1/RegistroLogin.txt";
+		Scanner linea=null;
+		File doc_1e=new File(au);
+				try{
+					
+					linea=new Scanner(doc_1e);
+					
+					while(linea.hasNextLine()){
+						
+						usuarioL=linea.nextLine();
+						contraseñaL=linea.nextLine();
+
+						modelo.addRow(new Object[]{usuarioL,contraseñaL});
+					}
+				}catch(Exception x){
+					Mensaje("Se Adicinó correctamente...");
+				}	
+		Listar();
+	}
+	public void abrirarchivoTexto(String archivoAd){
+
+	     try {
+
+	            File objetofileA = new File (archivoAd);
+	            Desktop.getDesktop().open(objetofileA);
+
+	     }catch (IOException exc) {
+
+	            System.out.println(exc);
+	     }
+	} 
+	
+	protected void do_buttonBuscar_actionPerformed(ActionEvent e) {
+		try{
+			Login x = al.Buscar(leerNombreUsuario());
+			if(x != null){
+				Mensaje("Se encontró "+leerNombreUsuario()+" "+"exitosamente");
+				txtNuevoNomUsuario.setText(x.getUsuario());
+				passwordCrear.setText(""+x.getContraseña());
+			}else{
+				mensaje("El usuario "+leerNombreUsuario()+" no existe en el registro");
+				txtNuevoNomUsuario.setText("");
+				txtNuevoNomUsuario.requestFocus();
+			}
+		}
+		catch (Exception b){
+				mensaje("Rellene el campo requirido");
+				txtNuevoNomUsuario.setText("");
+				txtNuevoNomUsuario.requestFocus();
+			}
+	}
+	protected void do_btnAbrir_actionPerformed(ActionEvent e) {
+		
+		try{
+			abrirarchivoTexto("RegistroLogin.txt");
+		}catch (Exception s){
+			mensaje("El archivo no existe");
+		}
+	}
+}

@@ -1,0 +1,39 @@
+package Arreglos;
+
+import java.util.ArrayList;
+
+import Clases.Cajero;
+
+public class ArregloCajeros {
+	
+	private ArrayList<Cajero> caj;
+	public ArregloCajeros(){
+		
+		caj=new ArrayList<Cajero>();
+		caj.add(new Cajero(0001, 5, 3, "FRANK", "VALDIVIA", "CAJERO", "NORMAL", 10000, logcaj));
+	}
+    //MÉTODO ADICIONAR
+	public void Adicionar(Cajero x){
+		caj.add(x);
+	}
+	//MÉTODO TAMAÑO DEL ARRAY
+	public int Tamaño(){
+		return caj.size();
+	}
+	//MÉTODO OBTENER
+	public Cajero Obtener(int i) {
+		return caj.get(i);
+	}
+   //MÉTODO BUSCAR
+	public Cajero Buscar(int cod) {
+	    for (int i=0; i<Tamaño(); i++){
+		    if (Obtener(i).getID_Empleado() == cod)
+		       return Obtener(i);//caj.get(i)
+	    }
+		return null;
+	}
+   //MÉTODO ELIMINAR
+	public void Eliminar(Cajero x) {
+		caj.remove(x);
+	}
+}

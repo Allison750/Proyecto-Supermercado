@@ -1,0 +1,3 @@
+123	Frank Andrés	Valdivia Zegarra	Administrador	Jr. Cuzco 688-San Miguel	n00198246@upn.pe	Admin01	Ad01 
+124	Facundo Joaquín	Salas Dominguez	Administrador	Jr. Rio de Janeiro 367 -- Ate	n00209878@upn.pe	Admin02	Ad02 
+125	Allison Andrea	Rodríguez Sánchez	Administrador	Calle Ricardo Angulo 1442 -- San Isidro	n00207109@upn.pe	Admin03	Ad03 

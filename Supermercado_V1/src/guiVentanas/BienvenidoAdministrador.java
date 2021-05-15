@@ -1,0 +1,603 @@
+package guiVentanas;
+
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
+
+import Arreglos.ArregloAdministradores;
+import Arreglos.ArregloLogin;
+import Clases.Administrador;
+import Clases.Cajero;
+import Clases.Login;
+
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
+import java.awt.Font;
+import java.awt.Color;
+import java.awt.Desktop;
+
+import javax.swing.JButton;
+import javax.swing.JTextField;
+import javax.swing.JPasswordField;
+import javax.swing.JScrollPane;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JTable;
+import javax.swing.ImageIcon;
+import java.awt.event.ActionListener;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Scanner;
+import java.awt.event.ActionEvent;
+
+public class BienvenidoAdministrador extends JFrame implements ActionListener {
+    ArregloAdministradores aa=new ArregloAdministradores();
+    ArregloLogin ala=new ArregloLogin();
+	private JPanel contentPane;
+	private JLabel lblBienvenidoAdministrador;
+	private JLabel lblPorFavorSrvase;
+	private JLabel lblNombre;
+	private JTextField txtNomAdmin;
+	private JLabel lblApellidos;
+	private JTextField txtApeAdmin;
+	private JLabel lblEmail;
+	private JTextField txtEmailAdmin;
+	private JLabel lblDireccin;
+	private JTextField txtDirecAdmin;
+	private JLabel lblUsuario;
+	private JTextField txtUsuarioAdmin;
+	private JLabel lblContrasea;
+	private JLabel lblId;
+	private JTextField txtIDadmin;
+	private JLabel lblCargo;
+	private JTextField txtCargo;
+	private JPasswordField passwordFieldAdmin;
+	private JScrollPane scrollPane;
+	private JComboBox comboBoxDomCorreo;
+	private JButton buttonAdicionar;
+	private JButton buttonModificar;
+	private JButton buttonListar;
+	private DefaultTableModel modelo;
+	private JButton btnEliminar;
+	private JButton buttonBuscar;
+	private JButton btnAbrir;
+	private JTable tableAdministradores;
+	private JButton btnAtrs;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					BienvenidoAdministrador frame = new BienvenidoAdministrador();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public BienvenidoAdministrador() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 1005, 587);
+		contentPane = new JPanel();
+		contentPane.setBackground(new Color(255, 240, 245));
+		contentPane.setForeground(new Color(0, 0, 0));
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		lblBienvenidoAdministrador = new JLabel("\u00A1 Bienvenido Administrador !");
+		lblBienvenidoAdministrador.setForeground(new Color(0, 0, 205));
+		lblBienvenidoAdministrador.setFont(new Font("Lucida Bright", Font.BOLD, 24));
+		lblBienvenidoAdministrador.setBounds(265, 0, 344, 41);
+		contentPane.add(lblBienvenidoAdministrador);
+		
+		lblPorFavorSrvase = new JLabel("Por favor, s\u00EDrvase llenar los siguientes datos:");
+		lblPorFavorSrvase.setBackground(new Color(240, 240, 240));
+		lblPorFavorSrvase.setForeground(new Color(255, 105, 180));
+		lblPorFavorSrvase.setFont(new Font("Yu Gothic UI Semibold", Font.BOLD, 14));
+		lblPorFavorSrvase.setBounds(32, 52, 402, 23);
+		contentPane.add(lblPorFavorSrvase);
+		
+		lblNombre = new JLabel("Nombres: ");
+		lblNombre.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNombre.setBounds(30, 113, 68, 23);
+		contentPane.add(lblNombre);
+		
+		txtNomAdmin = new JTextField();
+		txtNomAdmin.setBounds(107, 116, 113, 20);
+		contentPane.add(txtNomAdmin);
+		txtNomAdmin.setColumns(10);
+		
+		lblApellidos = new JLabel("Apellidos: ");
+		lblApellidos.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblApellidos.setBounds(238, 113, 68, 23);
+		contentPane.add(lblApellidos);
+		
+		txtApeAdmin = new JTextField();
+		txtApeAdmin.setBounds(316, 116, 151, 20);
+		contentPane.add(txtApeAdmin);
+		txtApeAdmin.setColumns(10);
+		
+		lblEmail = new JLabel("Email: ");
+		lblEmail.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblEmail.setBounds(487, 147, 68, 23);
+		contentPane.add(lblEmail);
+		
+		txtEmailAdmin = new JTextField();
+		txtEmailAdmin.setBounds(552, 147, 126, 20);
+		contentPane.add(txtEmailAdmin);
+		txtEmailAdmin.setColumns(10);
+		
+		lblDireccin = new JLabel("Direcci\u00F3n:");
+		lblDireccin.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblDireccin.setBounds(32, 147, 68, 23);
+		contentPane.add(lblDireccin);
+		
+		txtDirecAdmin = new JTextField();
+		txtDirecAdmin.setBounds(107, 147, 360, 20);
+		contentPane.add(txtDirecAdmin);
+		txtDirecAdmin.setColumns(10);
+		
+		lblUsuario = new JLabel("Usuario: ");
+		lblUsuario.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblUsuario.setBounds(30, 181, 68, 23);
+		contentPane.add(lblUsuario);
+		
+		txtUsuarioAdmin = new JTextField();
+		txtUsuarioAdmin.setBounds(94, 184, 126, 20);
+		contentPane.add(txtUsuarioAdmin);
+		txtUsuarioAdmin.setColumns(10);
+		
+		lblContrasea = new JLabel("Contrase\u00F1a: ");
+		lblContrasea.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblContrasea.setBounds(250, 181, 89, 23);
+		contentPane.add(lblContrasea);
+		
+		lblId = new JLabel("ID : ");
+		lblId.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblId.setBounds(30, 82, 45, 23);
+		contentPane.add(lblId);
+		
+		txtIDadmin = new JTextField();
+		txtIDadmin.setBounds(72, 82, 86, 20);
+		contentPane.add(txtIDadmin);
+		txtIDadmin.setColumns(10);
+		
+		lblCargo = new JLabel("Cargo: ");
+		lblCargo.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblCargo.setBounds(197, 82, 74, 23);
+		contentPane.add(lblCargo);
+		
+		txtCargo = new JTextField();
+		txtCargo.setBounds(262, 79, 135, 20);
+		contentPane.add(txtCargo);
+		txtCargo.setColumns(10);
+		
+		passwordFieldAdmin = new JPasswordField();
+		passwordFieldAdmin.setBounds(349, 181, 118, 20);
+		contentPane.add(passwordFieldAdmin);
+		
+		scrollPane = new JScrollPane();
+		scrollPane.setBounds(10, 233, 792, 279);
+		contentPane.add(scrollPane);
+		
+		tableAdministradores = new JTable();
+		scrollPane.setViewportView(tableAdministradores);
+		modelo = new DefaultTableModel();
+		modelo.addColumn("ID Admintrador");
+		modelo.addColumn("Nombres");
+		modelo.addColumn("Apellidos");
+		modelo.addColumn("Cargo");
+		modelo.addColumn("Dirección");
+		modelo.addColumn("Usuario");
+		modelo.addColumn("Email");
+		tableAdministradores.setModel(modelo);
+		Listar();
+		
+		comboBoxDomCorreo = new JComboBox();
+		comboBoxDomCorreo.setModel(new DefaultComboBoxModel(new String[] {"Seleccione", "@gmail.com", "@hotmail.com", "@outlook.es","@upn.pe"}));
+		comboBoxDomCorreo.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		comboBoxDomCorreo.setBounds(677, 147, 94, 20);
+		contentPane.add(comboBoxDomCorreo);
+		
+		buttonAdicionar = new JButton("Adicionar");
+		buttonAdicionar.addActionListener(this);
+		buttonAdicionar.setIcon(null);
+		buttonAdicionar.setFont(new Font("Tahoma", Font.BOLD, 12));
+		buttonAdicionar.setBackground(new Color(50, 205, 50));
+		buttonAdicionar.setBounds(812, 240, 151, 48);
+		contentPane.add(buttonAdicionar);
+		
+		buttonModificar = new JButton("Modificar");
+		buttonModificar.addActionListener(this);
+		buttonModificar.setFont(new Font("Tahoma", Font.BOLD, 12));
+		buttonModificar.setBackground(Color.YELLOW);
+		buttonModificar.setBounds(812, 358, 151, 48);
+		contentPane.add(buttonModificar);
+		
+		buttonListar = new JButton("Listar");
+		buttonListar.addActionListener(this);
+		buttonListar.setFont(new Font("Tahoma", Font.BOLD, 12));
+		buttonListar.setBackground(new Color(135, 206, 250));
+		buttonListar.setBounds(812, 417, 151, 48);
+		contentPane.add(buttonListar);
+		
+		btnEliminar = new JButton("Eliminar");
+		btnEliminar.addActionListener(this);
+		btnEliminar.setBackground(new Color(240, 128, 128));
+		btnEliminar.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnEliminar.setBounds(812, 299, 151, 48);
+		contentPane.add(btnEliminar);
+		
+		buttonBuscar = new JButton("Buscar");
+		buttonBuscar.addActionListener(this);
+		buttonBuscar.setFont(new Font("Tahoma", Font.BOLD, 12));
+		buttonBuscar.setBackground(Color.MAGENTA);
+		buttonBuscar.setBounds(812, 476, 151, 48);
+		contentPane.add(buttonBuscar);
+		
+		btnAbrir = new JButton("Abrir");
+		btnAbrir.addActionListener(this);
+		btnAbrir.setBounds(829, 206, 89, 23);
+		contentPane.add(btnAbrir);
+		
+		btnAtrs = new JButton("Atr\u00E1s");
+		btnAtrs.addActionListener(this);
+		btnAtrs.setBounds(829, 54, 89, 23);
+		contentPane.add(btnAtrs);
+	}
+	
+	
+	void Listar(){
+		modelo.setRowCount(0);
+		for(int i=0; i<aa.Tamaño(); i++){
+			Object[] fila ={
+			aa.Obtener(i).getID_Empleado(),
+			aa.Obtener(i).getNombre(),
+			aa.Obtener(i).getApellido(),
+			aa.Obtener(i).getCargo(),
+			aa.Obtener(i).getDirección(),
+			aa.Obtener(i).getLogad().getUsuario(),
+			aa.Obtener(i).getEmail()};
+			modelo.addRow(fila);
+			}
+	}
+	void Mensaje (String s){
+		JOptionPane.showMessageDialog(this, s);
+	}
+	void mensaje(String s){
+		JOptionPane.showMessageDialog(contentPane, s, "¡ERROR!", 0);
+	}
+	String mensaje(){
+		return "Rellene todos los campos";
+	}
+	int IdAmin(){
+		return Integer.parseInt(txtIDadmin.getText());
+	}
+	
+	String LeerNombre(){
+		return txtNomAdmin.getText();
+	}
+	
+	String LeerApellido(){
+		return txtApeAdmin.getText();
+	}
+	
+	String Cargo(){
+		return txtCargo.getText().trim();
+	}
+	
+	String Email(){
+		return txtEmailAdmin.getText()+comboBoxDomCorreo.getSelectedItem();
+	}
+	
+	String Login_Usuario(){ 
+		return txtUsuarioAdmin.getText();
+	}
+	String Login_Contraseña(){
+		return passwordFieldAdmin.getText();
+	}
+	
+	String Direccion(){
+		return txtDirecAdmin.getText();
+	}
+	public void actionPerformed(ActionEvent arg0) {
+		if (arg0.getSource() == btnAtrs) {
+			do_btnAtrs_actionPerformed(arg0);
+		}
+		if (arg0.getSource() == btnAbrir) {
+			do_btnAbrir_actionPerformed(arg0);
+		}
+		if (arg0.getSource() == buttonBuscar) {
+			do_buttonBuscar_actionPerformed(arg0);
+		}
+		if (arg0.getSource() == btnEliminar) {
+			do_btnEliminar_actionPerformed(arg0);
+		}
+		if (arg0.getSource() == buttonListar) {
+			do_buttonListar_actionPerformed(arg0);
+		}
+		if (arg0.getSource() == buttonModificar) {
+			do_buttonModificar_actionPerformed(arg0);
+		}
+		if (arg0.getSource() == buttonAdicionar) {
+			do_buttonAdicionar_actionPerformed(arg0);
+		}
+	}
+	protected void do_buttonAdicionar_actionPerformed(ActionEvent arg0) {
+		
+		try{
+			int ID_Admin=IdAmin();
+			String nomAd=LeerNombre(); 
+			if(nomAd.length() > 0){
+				try{
+					String apeAdm=LeerApellido(); 
+					if(apeAdm.length() > 0){
+						try{
+							String cargoAdm=Cargo(); 
+							if(cargoAdm.length() > 0){
+								try{
+									String dire =Direccion(); 
+									if(dire.length() > 0){
+										try{
+											String ema = Email(); 
+											if(ema.length()> 0)
+													try{
+														String nombre_usuario_registrado=Login_Usuario(); 
+														if(nombre_usuario_registrado.length() > 0){
+															try{
+																String contraseña_registrada=Login_Contraseña(); 
+																if(contraseña_registrada.length() > 0){
+																	Login l=new Login(nombre_usuario_registrado,contraseña_registrada);
+																	ala.Adicionar(l);
+																	Administrador ad=new Administrador(ID_Admin, LeerNombre(), LeerApellido(), Email(), Direccion(), Cargo(),l ); 
+																	aa.Adicionar(ad); 
+																	try{
+																		 FileWriter fw=new FileWriter("RegistroAdministrador.txt",true);
+																		 BufferedWriter bw=new BufferedWriter(fw);
+																		 PrintWriter pw =new PrintWriter(bw);
+																		
+																		 pw.print(ad.getID_Empleado()+"\t");
+																		 pw.print(ad.getNombre()+"\t");
+																		 pw.print(ad.getApellido()+"\t");
+																		 pw.print(ad.getCargo()+"\t");
+																		 pw.print(ad.getDirección()+"\t");
+																		 pw.print(ad.getEmail()+"\t");
+																		 pw.print(ad.getLogad().getUsuario()+"\t");
+																		 pw.print(ad.getLogad().getContraseña()+" \n");
+																																		
+																		 pw.close();
+																	 }catch (Exception e){
+																		 JOptionPane.showMessageDialog(null, e);
+																		 mensaje("Falta llenar el campo  Contraseña");
+																	 }
+																	//Listar();
+																	Mensaje("Se ha añadido un Administrador exitosamente");
+																	
+																}else{
+																	mensaje("Hay uno o muchos campos vacíos");
+																}
+															}catch(Exception e){
+																mensaje("Hay uno o muchos campos vacíos");
+															}
+														}else{
+															mensaje("Hay uno o muchos campos vacíos");
+														}
+													}catch(Exception e){
+														mensaje("Hay uno o muchos campos vacíos");
+													}else{
+											mensaje("Hay uno o muchos campos vacíos");
+										}
+										}catch(Exception e){
+											mensaje("Hay uno o muchos campos vacíos");
+										}
+									}else{
+										mensaje("Hay uno o muchos campos vacíos");
+									}
+								}catch(Exception e){
+									mensaje("Hay uno o muchos campos vacíos");
+								}
+							}else{
+								mensaje("Hay uno o muchos campos vacíos");
+							}
+						}catch(Exception e){
+							mensaje("Hay uno o muchos campos vacíos");
+						}
+					}else{
+						mensaje("Hay uno o muchos campos vacíos");
+					}
+				}catch(Exception e){
+					mensaje("Hay uno o muchos campos vacíos");
+				}
+			}else{
+				mensaje("Hay uno o muchos campos vacíos");
+			}
+		}catch(Exception e){
+			mensaje("Ningún campo está lleno");
+		}
+	
+	}
+	protected void do_buttonModificar_actionPerformed(ActionEvent arg0) {
+		try{
+			Administrador x = aa.Buscar(IdAmin());
+			if(x != null){
+				String nombre = LeerNombre();
+				if(nombre.length()>0){
+					try{
+						int IDa = IdAmin();
+						try{
+							String Direc=Direccion();
+							String contraseña_registrada=Login_Contraseña();
+							String nombre_usuario_registrado=Login_Usuario();
+							Login l=new Login(nombre_usuario_registrado,contraseña_registrada);
+							//Listar();
+							Mensaje("Se ha modificado el cajero con ID "+IDa+" correctamente...");
+							x.setNombre(LeerNombre());
+							x.setApellido(LeerApellido());
+							x.setCargo(Cargo());
+							x.setDirección(Direc);
+							x.setEmail(Email());
+							x.setLogad(l);
+							
+							Listar();
+							txtIDadmin.requestFocus();
+						}
+						catch(Exception e){
+							mensaje(mensaje());
+							txtDirecAdmin.setText("");
+							txtDirecAdmin.requestFocus();
+						}
+					}catch(Exception e){
+						mensaje(mensaje());
+						txtNomAdmin.setText("");
+						txtNomAdmin.requestFocus();
+					}
+				}else{
+					mensaje(mensaje());
+					txtNomAdmin.setText("");
+					txtApeAdmin.requestFocus();
+					txtCargo.setText("");
+					txtDirecAdmin.setText("");
+					txtEmailAdmin.setText("");
+					txtUsuarioAdmin.setText("");
+					passwordFieldAdmin.setText("");
+					txtIDadmin.requestFocus();
+					}
+			}else{
+				mensaje("¡CODIGO INEXISTENTE!");
+				txtIDadmin.setText("");
+				txtIDadmin.requestFocus();
+			}
+		}
+		catch(Exception e){
+			mensaje("¡CODIGO INEXISTENTE!");
+			txtIDadmin.setText("");
+			txtIDadmin.requestFocus();
+		}
+	}
+	
+	protected void do_buttonListar_actionPerformed(ActionEvent arg0) {
+		String usuarioA,contraseñaA,ida,nom,appe,car,email,dr;
+		String au="C:/Users/allis/OneDrive/Escritorio/PROYECTO SUPERMERCADO/Supermercado_V1/RegistroAdministradores.txt";
+		Scanner linea=null;
+		File doc_1e=new File(au);
+				try{
+					
+					linea=new Scanner(doc_1e);
+					
+					while(linea.hasNextLine()){
+						ida=linea.nextLine();
+						nom=linea.nextLine();
+						appe=linea.nextLine();
+						car=linea.nextLine();
+						dr=linea.nextLine();
+						email=linea.nextLine();
+						usuarioA=linea.nextLine();
+						contraseñaA=linea.nextLine();
+
+						modelo.addRow(new Object[]{ida,nom,appe,car,dr,email,usuarioA,contraseñaA});
+					}
+				}catch(Exception x){
+					Mensaje("Se Adicinó correctamente...");
+				}	
+		Listar();	
+	}
+	public void abrirarchivoTexto(String archivoAd){
+
+	     try {
+
+	            File objetofileA = new File (archivoAd);
+	            Desktop.getDesktop().open(objetofileA);
+
+	     }catch (Exception exc) {
+
+	            System.out.println(exc);
+	     }
+	} 
+	protected void do_btnAbrir_actionPerformed(ActionEvent arg0) {
+		try{
+			abrirarchivoTexto("RegistroAdministrador.txt");
+		}catch (Exception s){
+			mensaje("El archivo no existe");
+		}	
+		
+	}
+	protected void do_btnEliminar_actionPerformed(ActionEvent arg0) {
+		try {
+			Administrador x = aa.Buscar(IdAmin());
+			if (x != null) {
+				aa.Eliminar(x);
+				Mensaje("Se eliminó "+IdAmin()+" "+"exitosamente");
+				//Listar();
+				txtIDadmin.setText("");
+				txtNomAdmin.setText("");
+				txtApeAdmin.setText("");
+				txtCargo.setText("");
+				txtDirecAdmin.setText("");
+				txtEmailAdmin.setText("");
+				comboBoxDomCorreo.setSelectedIndex(0);
+				txtUsuarioAdmin.setText("");
+				passwordFieldAdmin.setText(" ");
+				
+			}
+			else {
+				mensaje("El ID de Administrador: " + IdAmin() + " no existe");
+				txtIDadmin.setText("");
+				txtIDadmin.requestFocus();
+				}
+			}
+			catch (Exception e) {
+				mensaje("Rellene los campos");
+				txtIDadmin.setText("");
+				txtIDadmin.requestFocus();
+			}
+		
+		//Listar();
+	}
+    protected void do_buttonBuscar_actionPerformed(ActionEvent arg0) {
+    	try{
+			 Administrador x = aa.Buscar(IdAmin());
+			if(x != null){
+				Mensaje("Se encontró "+IdAmin()+" "+"exitosamente");
+				txtNomAdmin.setText(x.getNombre());
+				txtApeAdmin.setText(""+x.getApellido());
+				txtCargo.setText(""+x.getCargo());
+				txtDirecAdmin.setText(""+x.getDirección());
+				txtEmailAdmin.setText(""+x.getEmail());
+				txtUsuarioAdmin.setText(""+x.getLogad().getUsuario());
+				passwordFieldAdmin.setText(""+x.getLogad().getContraseña());
+			}else{
+				mensaje("El ID de cajero "+IdAmin()+" no existe en el registro");
+				txtIDadmin.setText("");
+				txtIDadmin.requestFocus();
+			}
+		}
+		catch (Exception e){
+				mensaje("Rellene el campo requirido");
+				txtIDadmin.setText("");
+				txtIDadmin.requestFocus();
+			}
+ 
+   }
+	protected void do_btnAtrs_actionPerformed(ActionEvent arg0) {
+		Ventana_login_Admin nuevoFrame= new Ventana_login_Admin();
+		nuevoFrame.setVisible(true);
+		dispose();	
+	}
+}

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="guiVentanas.Ventana_login"/>
+<fullyQualifiedTypeName name="guiVentanas.Listando_Usuarios"/>
+<fullyQualifiedTypeName name="guiVentanas.Ventana_login_Admin"/>
+<fullyQualifiedTypeName name="guiVentanas.Ventana_login_Cajero"/>
+<fullyQualifiedTypeName name="Arreglos.ArregloAdministradores"/>
+<fullyQualifiedTypeName name="javax.swing.JOptionPane"/>
+<fullyQualifiedTypeName name="Arreglos.ArregloCajeros"/>
+<fullyQualifiedTypeName name="Clases.Cajero"/>
+<fullyQualifiedTypeName name="javax.swing.table.DefaultTableModel"/>
+<fullyQualifiedTypeName name="java.lang.Exception"/>
+<fullyQualifiedTypeName name="Clases.Login"/>
+<fullyQualifiedTypeName name="java.io.FileWriter"/>
+<fullyQualifiedTypeName name="java.io.BufferedWriter"/>
+<fullyQualifiedTypeName name="java.io.PrintWriter"/>
+<fullyQualifiedTypeName name="java.util.Scanner"/>
+<fullyQualifiedTypeName name="java.io.File"/>
+<fullyQualifiedTypeName name="java.awt.Desktop"/>
+<fullyQualifiedTypeName name="Clases.Administrador"/>
+<fullyQualifiedTypeName name="java.io.IOException"/>
+<fullyQualifiedTypeName name="java.lang.System"/>
+<fullyQualifiedTypeName name="java.io.PrintStream"/>
+<fullyQualifiedTypeName name="Arreglos.ArregloLogin"/>
+<fullyQualifiedTypeName name="java.io.FileReader"/>
+</qualifiedTypeNameHistroy>

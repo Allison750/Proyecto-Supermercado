@@ -1,0 +1,8 @@
+
+123	Ariana Carolina	Reyes Garcia	Cajero	Cajero Flash	29	1	930.0	Caj01	1234
+
+345	Leonel Angelo	León Taco	Cajero	Cajero Normal	28	2	650.0	Caj02	4567
+
+456	Claudio Martin	Sotelo	Cajero	Cajero Flash	        27	3	500.0	Caj03	7891
+
+789	Dulce María	Vilchez Govea	Cajero	Cajero Normal	30	0	930.0	Caj04	2345
