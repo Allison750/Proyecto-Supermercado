@@ -398,7 +398,7 @@ public class CrearUsuario extends JFrame implements ActionListener {
 			}
 	}
 	protected void do_btnAbrir_actionPerformed(ActionEvent e) {
-		//holaa soy Allison
+		
 		try{
 			abrirarchivoTexto("RegistroLogin.txt");
 		}catch (Exception s){
